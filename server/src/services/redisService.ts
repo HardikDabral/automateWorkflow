@@ -1,31 +1,36 @@
-import Redis from 'ioredis'
+import Redis, { type RedisOptions } from 'ioredis'
 
 let client: Redis | null = null
 let publisher: Redis | null = null
 let subscriber: Redis | null = null
 
-function buildRedisOptions() {
-  const password = process.env.REDIS_PASSWORD || undefined
-  return {
+const sharedOptions: RedisOptions = {
+  maxRetriesPerRequest: null, // BullMQ requires this
+}
+
+function buildRedis(): Redis {
+  const url = process.env.REDIS_URL
+  if (url) return new Redis(url, sharedOptions)
+  return new Redis({
     host: process.env.REDIS_HOST || 'localhost',
     port: Number(process.env.REDIS_PORT || 6379),
-    password,
-    maxRetriesPerRequest: null as null, // BullMQ requires this
-  }
+    password: process.env.REDIS_PASSWORD || undefined,
+    ...sharedOptions,
+  })
 }
 
 export function getRedis(): Redis {
-  if (!client) client = new Redis(buildRedisOptions())
+  if (!client) client = buildRedis()
   return client
 }
 
 export function getPublisher(): Redis {
-  if (!publisher) publisher = new Redis(buildRedisOptions())
+  if (!publisher) publisher = buildRedis()
   return publisher
 }
 
 export function getSubscriber(): Redis {
-  if (!subscriber) subscriber = new Redis(buildRedisOptions())
+  if (!subscriber) subscriber = buildRedis()
   return subscriber
 }
 

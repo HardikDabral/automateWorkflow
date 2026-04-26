@@ -13,6 +13,7 @@ import { requireAuth } from './middleware/auth'
 import { errorHandler } from './middleware/errorHandler'
 import { initSocketServer } from './socket/socketServer'
 import { getUsage } from './services/quotaService'
+import { startWorker } from '../../worker/src/index'
 
 async function main() {
   await connectMongo()
@@ -47,6 +48,10 @@ async function main() {
 
   const server = http.createServer(app)
   initSocketServer(server)
+
+  if (process.env.INLINE_WORKER === 'true') {
+    startWorker()
+  }
 
   const port = Number(process.env.PORT || 5000)
   server.listen(port, () => {

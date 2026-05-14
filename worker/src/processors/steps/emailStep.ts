@@ -5,10 +5,11 @@ import { resolveVariables } from '../variableResolver'
 let transporter: Transporter | null = null
 function getTransporter(): Transporter {
   if (!transporter) {
+    const port = Number(process.env.SMTP_PORT || 587)
     transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: false,
+      port,
+      secure: port === 465,
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
@@ -30,7 +31,7 @@ export const emailStep: AtomicStepHandler = async (step, ctx) => {
   if (!config.to || !config.subject) {
     return { kind: 'failed', error: 'send_email: missing to or subject after variable resolution' }
   }
-  const from = process.env.SMTP_USER || 'no-reply@example.com'
+  const from = process.env.SMTP_FROM || 'onboarding@resend.dev'
   try {
     const info = await getTransporter().sendMail({
       from,

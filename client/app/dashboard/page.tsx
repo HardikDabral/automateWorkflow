@@ -60,7 +60,7 @@ export default function DashboardPage() {
         <StatsCard stats={stats} />
       </section>
 
-      <section className="mt-8">
+      <section id="workflows" className="mt-8 scroll-mt-24">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-lg font-semibold tracking-tight">Your workflows</h2>
           <span className="text-xs text-[color:var(--muted)]">

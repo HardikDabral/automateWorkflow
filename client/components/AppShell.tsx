@@ -18,6 +18,7 @@ import { clearAuth, loadAuth } from '@/lib/auth'
 import { disconnectSocket } from '@/lib/socket'
 import { cn } from '@/lib/utils'
 import { useUsage } from '@/hooks/useUsage'
+import { SettingsModal } from './SettingsModal'
 
 interface ShellProps {
   children: ReactNode
@@ -28,10 +29,11 @@ interface ShellProps {
 
 export function AppShell({ children, title, subtitle, actions }: ShellProps) {
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [settingsOpen, setSettingsOpen] = useState(false)
   return (
     <div className="min-h-screen lg:grid lg:grid-cols-[260px_1fr] bg-[color:var(--background)]">
       <div className="hidden lg:block">
-        <Sidebar />
+        <Sidebar onOpenSettings={() => setSettingsOpen(true)} />
       </div>
       {drawerOpen && (
         <>
@@ -40,7 +42,13 @@ export function AppShell({ children, title, subtitle, actions }: ShellProps) {
             onClick={() => setDrawerOpen(false)}
           />
           <div className="fixed inset-y-0 left-0 z-50 w-[280px] lg:hidden">
-            <Sidebar onNavigate={() => setDrawerOpen(false)} />
+            <Sidebar
+              onNavigate={() => setDrawerOpen(false)}
+              onOpenSettings={() => {
+                setDrawerOpen(false)
+                setSettingsOpen(true)
+              }}
+            />
           </div>
         </>
       )}
@@ -55,11 +63,18 @@ export function AppShell({ children, title, subtitle, actions }: ShellProps) {
         )}
         <main className="flex-1 min-w-0 p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
+      <SettingsModal open={settingsOpen} onClose={() => setSettingsOpen(false)} />
     </div>
   )
 }
 
-function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
+function Sidebar({
+  onNavigate,
+  onOpenSettings,
+}: {
+  onNavigate?: () => void
+  onOpenSettings: () => void
+}) {
   const router = useRouter()
   const pathname = usePathname()
   const auth = typeof window !== 'undefined' ? loadAuth() : null
@@ -103,17 +118,18 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
           onNavigate={onNavigate}
         />
         <NavItem
-          href="/dashboard"
+          href="/dashboard#workflows"
           icon={<Workflow className="h-4 w-4" />}
           label="Workflows"
           active={pathname.startsWith('/workflows')}
-          onNavigate={onNavigate}
-        />
-        <NavItem
-          href="/dashboard"
-          icon={<Sparkles className="h-4 w-4" />}
-          label="AI Builder"
-          onNavigate={onNavigate}
+          onNavigate={() => {
+            onNavigate?.()
+            if (pathname === '/dashboard') {
+              document
+                .getElementById('workflows')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+          }}
         />
       </nav>
 
@@ -121,11 +137,10 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         ACCOUNT
       </div>
       <nav className="mt-2 space-y-1">
-        <NavItem
-          href="/dashboard"
+        <NavButton
           icon={<Settings className="h-4 w-4" />}
           label="Settings"
-          onNavigate={onNavigate}
+          onClick={onOpenSettings}
         />
       </nav>
 
@@ -151,6 +166,26 @@ function Sidebar({ onNavigate }: { onNavigate?: () => void }) {
         </button>
       </div>
     </aside>
+  )
+}
+
+function NavButton({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: ReactNode
+  label: string
+  onClick: () => void
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-[color:var(--muted)] hover:text-white hover:bg-[color:var(--surface-2)] transition-colors"
+    >
+      {icon}
+      <span className="flex-1 text-left">{label}</span>
+    </button>
   )
 }
 

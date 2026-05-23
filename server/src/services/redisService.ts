@@ -6,6 +6,7 @@ let subscriber: Redis | null = null
 
 const sharedOptions: RedisOptions = {
   maxRetriesPerRequest: null, // BullMQ requires this
+  family: 0, // Dual-stack DNS — required for Railway's IPv6-only private network
 }
 
 function buildRedis(): Redis {

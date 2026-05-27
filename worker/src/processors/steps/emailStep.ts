@@ -44,6 +44,29 @@ async function sendViaResend(config: EmailConfig, from: string): Promise<string>
   return data.id
 }
 
+async function sendViaBrevo(config: EmailConfig, from: string): Promise<string> {
+  const senderEmail = from.match(/<(.+)>/)?.[1] ?? from
+  const senderName = from.match(/^(.+?)\s*</)?.[1]?.trim()
+  const { data } = await axios.post(
+    'https://api.brevo.com/v3/smtp/email',
+    {
+      sender: senderName ? { email: senderEmail, name: senderName } : { email: senderEmail },
+      to: [{ email: config.to }],
+      subject: config.subject,
+      htmlContent: config.body || ' ',
+    },
+    {
+      headers: {
+        'api-key': process.env.BREVO_API_KEY,
+        accept: 'application/json',
+        'content-type': 'application/json',
+      },
+      timeout: 10_000,
+    },
+  )
+  return data.messageId
+}
+
 async function sendViaSmtp(config: EmailConfig, from: string): Promise<string> {
   const info = await getTransporter().sendMail({
     from,
@@ -60,14 +83,22 @@ export const emailStep: AtomicStepHandler = async (step, ctx) => {
     return { kind: 'failed', error: 'send_email: missing to or subject after variable resolution' }
   }
   const from = process.env.SMTP_FROM || 'onboarding@resend.dev'
+  let provider: 'brevo' | 'resend' | 'smtp' = 'smtp'
   try {
-    const messageId = process.env.RESEND_API_KEY
-      ? await sendViaResend(config as EmailConfig, from)
-      : await sendViaSmtp(config as EmailConfig, from)
-    return { kind: 'ok', output: { messageId, to: config.to } }
+    let messageId: string
+    if (process.env.BREVO_API_KEY) {
+      provider = 'brevo'
+      messageId = await sendViaBrevo(config as EmailConfig, from)
+    } else if (process.env.RESEND_API_KEY) {
+      provider = 'resend'
+      messageId = await sendViaResend(config as EmailConfig, from)
+    } else {
+      messageId = await sendViaSmtp(config as EmailConfig, from)
+    }
+    return { kind: 'ok', output: { messageId, to: config.to, provider } }
   } catch (e) {
     if (axios.isAxiosError(e) && e.response) {
-      return { kind: 'failed', error: `resend: ${JSON.stringify(e.response.data)}` }
+      return { kind: 'failed', error: `${provider}: ${JSON.stringify(e.response.data)}` }
     }
     return { kind: 'failed', error: e instanceof Error ? e.message : String(e) }
   }

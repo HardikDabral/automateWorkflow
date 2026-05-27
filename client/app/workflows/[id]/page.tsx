@@ -121,7 +121,7 @@ export default function WorkflowBuilderPage({
         <div className="flex items-center gap-3 min-w-0">
           <button
             onClick={() => router.push('/dashboard')}
-            className="h-9 w-9 shrink-0 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+            className="h-9 w-9 shrink-0 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
             title="Back"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -281,8 +281,8 @@ function MobileTab({
       onClick={onClick}
       className={`flex flex-col items-center justify-center gap-1 h-14 text-[11px] transition-colors ${
         active
-          ? 'text-white bg-[color:var(--surface-2)]'
-          : 'text-[color:var(--muted)] hover:text-white'
+          ? 'text-[color:var(--foreground)] bg-[color:var(--surface-2)]'
+          : 'text-[color:var(--muted)] hover:text-[color:var(--foreground)]'
       }`}
     >
       {icon}

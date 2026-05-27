@@ -101,10 +101,10 @@ export function AIChatPanel({
       <div className="h-full w-full lg:w-12 flex flex-col items-center py-4 bg-[color:var(--surface)] border-l border-[color:var(--border)]">
         <button
           onClick={onToggle}
-          className="h-9 w-9 grid place-items-center rounded-xl bg-white/10 hover:bg-white/20 transition-colors"
+          className="h-9 w-9 grid place-items-center rounded-xl bg-[rgb(var(--tint)/0.1)] hover:bg-[rgb(var(--tint)/0.2)] transition-colors"
           title="Expand AI assistant"
         >
-          <Sparkles className="h-4 w-4 text-white" />
+          <Sparkles className="h-4 w-4 text-[color:var(--foreground)]" />
         </button>
         <div className="mt-3 text-[10px] uppercase tracking-wider text-[color:var(--muted-2)] [writing-mode:vertical-rl] rotate-180">
           AI assistant
@@ -116,8 +116,8 @@ export function AIChatPanel({
   return (
     <div className="h-full flex flex-col bg-[color:var(--surface)] border-l border-[color:var(--border)]">
       <header className="flex items-center gap-3 px-5 py-4 border-b border-[color:var(--border)]">
-        <div className="h-9 w-9 rounded-xl bg-white/10 grid place-items-center">
-          <Sparkles className="h-4 w-4 text-white" />
+        <div className="h-9 w-9 rounded-xl bg-[rgb(var(--tint)/0.1)] grid place-items-center">
+          <Sparkles className="h-4 w-4 text-[color:var(--foreground)]" />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-semibold">AI assistant</h3>
@@ -125,7 +125,7 @@ export function AIChatPanel({
         </div>
         <button
           onClick={onToggle}
-          className="h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+          className="h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
           title="Collapse"
         >
           <ChevronLeft className="h-4 w-4" />

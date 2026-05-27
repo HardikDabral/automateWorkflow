@@ -19,6 +19,7 @@ import { disconnectSocket } from '@/lib/socket'
 import { cn } from '@/lib/utils'
 import { useUsage } from '@/hooks/useUsage'
 import { SettingsModal } from './SettingsModal'
+import { ThemeToggle } from './ThemeToggle'
 
 interface ShellProps {
   children: ReactNode
@@ -90,7 +91,7 @@ function Sidebar({
   return (
     <aside className="h-screen lg:sticky lg:top-0 flex flex-col bg-[color:var(--surface)] border-r border-[color:var(--border)] p-4">
       <div className="flex items-center gap-3 px-2 py-2 rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)]">
-        <div className="h-9 w-9 rounded-full bg-gradient-to-br from-white to-neutral-400 grid place-items-center text-[color:var(--accent-fg)] text-xs font-semibold">
+        <div className="h-9 w-9 rounded-full bg-[color:var(--accent)] grid place-items-center text-[color:var(--accent-fg)] text-xs font-semibold">
           {initials}
         </div>
         <div className="min-w-0 flex-1">
@@ -101,7 +102,7 @@ function Sidebar({
             @{auth?.user.email?.split('@')[0] ?? 'guest'}
           </div>
         </div>
-        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-[color:var(--surface-3)] border border-[color:var(--border-strong)] text-[color:var(--muted)]">
+        <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-md bg-[rgb(var(--brand-rgb)/0.12)] border border-[rgb(var(--brand-rgb)/0.3)] text-[color:var(--brand)]">
           Pro
         </span>
       </div>
@@ -142,14 +143,15 @@ function Sidebar({
           label="Settings"
           onClick={onOpenSettings}
         />
+        <ThemeToggle />
       </nav>
 
       <div className="mt-auto">
-        <div className="relative rounded-2xl border border-[color:var(--border)] bg-gradient-to-br from-[color:var(--surface-2)] to-[color:var(--surface)] p-4 overflow-hidden">
-          <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-white/5 blur-2xl" />
+        <div className="relative rounded-2xl border border-[rgb(var(--brand-rgb)/0.25)] bg-gradient-to-br from-[rgb(var(--brand-rgb)/0.1)] to-[color:var(--surface)] p-4 overflow-hidden">
+          <div className="absolute -right-6 -top-6 h-20 w-20 rounded-full bg-[rgb(var(--brand-rgb)/0.2)] blur-2xl" />
           <div className="relative">
-            <div className="h-8 w-8 rounded-lg bg-white/10 grid place-items-center mb-3">
-              <Sparkles className="h-4 w-4 text-white" />
+            <div className="h-8 w-8 rounded-lg bg-[rgb(var(--brand-rgb)/0.15)] border border-[rgb(var(--brand-rgb)/0.25)] grid place-items-center mb-3">
+              <Sparkles className="h-4 w-4 text-[color:var(--brand)]" />
             </div>
             <div className="text-[11px] text-[color:var(--muted)] mb-1">new era</div>
             <div className="text-sm font-medium leading-tight">
@@ -160,7 +162,7 @@ function Sidebar({
         </div>
         <button
           onClick={onLogout}
-          className="mt-3 w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-[color:var(--muted)] hover:text-white hover:bg-[color:var(--surface-2)] transition-colors"
+          className="mt-3 w-full flex items-center gap-2 px-3 py-2 rounded-xl text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--surface-2)] transition-colors"
         >
           <LogOut className="h-4 w-4" /> Log out
         </button>
@@ -181,7 +183,7 @@ function NavButton({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-[color:var(--muted)] hover:text-white hover:bg-[color:var(--surface-2)] transition-colors"
+      className="w-full flex items-center gap-3 px-3 py-2 rounded-xl text-sm text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--surface-2)] transition-colors"
     >
       {icon}
       <span className="flex-1 text-left">{label}</span>
@@ -211,8 +213,8 @@ function NavItem({
       className={cn(
         'flex items-center gap-3 px-3 py-2 rounded-xl text-sm transition-colors',
         active
-          ? 'bg-[color:var(--surface-2)] text-white border border-[color:var(--border)]'
-          : 'text-[color:var(--muted)] hover:text-white hover:bg-[color:var(--surface-2)]',
+          ? 'bg-[color:var(--surface-2)] text-[color:var(--foreground)] border border-[color:var(--border)]'
+          : 'text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--surface-2)]',
       )}
     >
       {icon}
@@ -244,7 +246,7 @@ function TopBar({
         <button
           onClick={onMenu}
           aria-label="Open menu"
-          className="lg:hidden h-10 w-10 shrink-0 grid place-items-center rounded-xl bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+          className="lg:hidden h-10 w-10 shrink-0 grid place-items-center rounded-xl bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
         >
           <Menu className="h-4 w-4" />
         </button>
@@ -270,7 +272,7 @@ function TopBar({
             className="bg-transparent outline-none text-sm flex-1 placeholder:text-[color:var(--muted-2)]"
           />
         </div>
-        <button className="hidden sm:grid h-10 w-10 place-items-center rounded-xl bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors">
+        <button className="hidden sm:grid h-10 w-10 place-items-center rounded-xl bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors">
           <Bell className="h-4 w-4" />
         </button>
         {actions}

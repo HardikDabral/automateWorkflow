@@ -72,7 +72,7 @@ export function LoginForm() {
       </form>
       <p className="mt-6 text-sm text-[color:var(--muted)]">
         Need an account?{' '}
-        <Link href="/signup" className="text-white hover:underline">
+        <Link href="/signup" className="text-[color:var(--foreground)] hover:underline">
           Create one
         </Link>
       </p>

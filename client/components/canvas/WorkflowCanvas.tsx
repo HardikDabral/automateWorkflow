@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useCallback } from 'react'
+import { useMemo, useCallback, useEffect, useState } from 'react'
 import {
   ReactFlow,
   Background,
@@ -44,6 +44,20 @@ export function WorkflowCanvas() {
 
   const { nodes, edges } = useMemo(() => buildCanvas(definition), [definition])
 
+  const [gridColor, setGridColor] = useState('#2a2a30')
+  useEffect(() => {
+    const read = () =>
+      setGridColor(
+        getComputedStyle(document.documentElement)
+          .getPropertyValue('--grid')
+          .trim() || '#2a2a30',
+      )
+    read()
+    const observer = new MutationObserver(read)
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => observer.disconnect()
+  }, [])
+
   const onNodeClick: NodeMouseHandler = useCallback(
     (_evt, node: Node) => {
       if (node.id === 'trigger') {
@@ -65,7 +79,7 @@ export function WorkflowCanvas() {
         fitView
         proOptions={{ hideAttribution: true }}
       >
-        <Background color="#2a2a30" gap={24} />
+        <Background color={gridColor} gap={24} />
         <Controls />
       </ReactFlow>
 
@@ -77,7 +91,7 @@ export function WorkflowCanvas() {
           <button
             key={type}
             onClick={() => addStep(type)}
-            className="text-left px-3 py-1.5 rounded-lg text-[color:var(--muted)] hover:text-white hover:bg-[color:var(--surface-2)] transition-colors"
+            className="text-left px-3 py-1.5 rounded-lg text-[color:var(--muted)] hover:text-[color:var(--foreground)] hover:bg-[color:var(--surface-2)] transition-colors"
           >
             + {type}
           </button>

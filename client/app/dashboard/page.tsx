@@ -44,7 +44,7 @@ export default function DashboardPage() {
           <button
             onClick={onboarding.show}
             title="How it works"
-            className="h-10 w-10 grid place-items-center rounded-xl bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+            className="h-10 w-10 grid place-items-center rounded-xl bg-[color:var(--surface)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
           >
             <HelpCircle className="h-4 w-4" />
           </button>
@@ -108,15 +108,15 @@ export default function DashboardPage() {
 
 function HeroCard({ onNew }: { onNew: () => void }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-[color:var(--border)] bg-gradient-to-br from-[color:var(--surface-2)] via-[color:var(--surface)] to-[color:var(--surface)] p-6 sm:p-8">
-      <div className="absolute -top-16 -right-16 h-48 w-48 rounded-full bg-white/5 blur-3xl" />
-      <div className="absolute -bottom-24 -left-10 h-48 w-48 rounded-full bg-white/5 blur-3xl" />
+    <div className="relative overflow-hidden rounded-2xl border border-[rgb(var(--brand-rgb)/0.25)] bg-gradient-to-br from-[rgb(var(--brand-rgb)/0.08)] via-[color:var(--surface)] to-[color:var(--surface)] p-6 sm:p-8 shadow-[0_1px_0_rgb(var(--brand-rgb)/0.08),0_20px_60px_-30px_rgb(var(--brand-rgb)/0.5)]">
+      <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-[rgb(var(--brand-rgb)/0.18)] blur-3xl" />
+      <div className="absolute -bottom-24 -left-10 h-48 w-48 rounded-full bg-[rgb(var(--brand-rgb)/0.08)] blur-3xl" />
       <div className="relative">
-        <div className="h-10 w-10 rounded-xl bg-white/10 grid place-items-center mb-4">
-          <WorkflowIcon className="h-5 w-5 text-white" />
+        <div className="h-11 w-11 rounded-xl bg-[rgb(var(--brand-rgb)/0.15)] border border-[rgb(var(--brand-rgb)/0.25)] grid place-items-center mb-5">
+          <WorkflowIcon className="h-5 w-5 text-[color:var(--brand)]" />
         </div>
-        <h3 className="text-lg sm:text-xl font-semibold">Design automations visually</h3>
-        <p className="mt-1 text-sm text-[color:var(--muted)] max-w-md">
+        <h3 className="text-xl sm:text-2xl font-semibold tracking-tight">Design automations visually</h3>
+        <p className="mt-2 text-sm text-[color:var(--muted)] max-w-md">
           Describe what should happen — the AI drafts it on the canvas. Edit the nodes,
           hit activate, and your workflow runs on every matching event.
         </p>
@@ -202,7 +202,7 @@ function WorkflowCard({ wf }: { wf: Workflow }) {
     >
       <div className="flex items-center justify-between gap-3">
         <div className="h-10 w-10 rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] grid place-items-center group-hover:bg-[color:var(--surface-3)]">
-          <WorkflowIcon className="h-4 w-4 text-[color:var(--muted)] group-hover:text-white" />
+          <WorkflowIcon className="h-4 w-4 text-[color:var(--muted)] group-hover:text-[color:var(--foreground)]" />
         </div>
         <StatusPill status={wf.status} />
       </div>

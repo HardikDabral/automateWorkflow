@@ -15,16 +15,16 @@ export function PaywallModal() {
     <div className="fixed inset-0 z-[100] grid place-items-center bg-black/80 p-4 backdrop-blur-sm">
       <div className="w-full max-w-md rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] overflow-hidden">
         <div className="relative p-6 bg-gradient-to-br from-[color:var(--surface-2)] to-[color:var(--surface)] border-b border-[color:var(--border)]">
-          <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-white/5 blur-3xl" />
+          <div className="absolute -top-12 -right-12 h-32 w-32 rounded-full bg-[rgb(var(--tint)/0.05)] blur-3xl" />
           <button
             onClick={() => setMessage(null)}
-            className="absolute top-4 right-4 h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+            className="absolute top-4 right-4 h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
           <div className="relative">
-            <div className="h-10 w-10 rounded-xl bg-white/10 grid place-items-center mb-4">
-              <Sparkles className="h-5 w-5 text-white" />
+            <div className="h-10 w-10 rounded-xl bg-[rgb(var(--tint)/0.1)] grid place-items-center mb-4">
+              <Sparkles className="h-5 w-5 text-[color:var(--foreground)]" />
             </div>
             <div className="text-xs uppercase tracking-wider text-[color:var(--muted)] mb-1">
               Free trial used up

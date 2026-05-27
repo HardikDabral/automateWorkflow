@@ -37,7 +37,7 @@ export function SettingsModal({ open, onClose }: { open: boolean; onClose: () =>
         <div className="relative px-6 py-5 border-b border-[color:var(--border)] bg-gradient-to-br from-[color:var(--surface-2)] to-[color:var(--surface)]">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+            className="absolute top-4 right-4 h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -149,7 +149,7 @@ function UsageTile({
       </div>
       <div className="mt-2 h-1 rounded-full bg-[color:var(--surface-3)] overflow-hidden">
         <div
-          className={`h-full rounded-full ${low ? 'bg-[color:var(--warning)]' : 'bg-white/70'}`}
+          className={`h-full rounded-full ${low ? 'bg-[color:var(--warning)]' : 'bg-[rgb(var(--tint)/0.7)]'}`}
           style={{ width: `${pct}%` }}
         />
       </div>

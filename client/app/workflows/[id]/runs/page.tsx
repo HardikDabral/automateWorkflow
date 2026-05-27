@@ -22,7 +22,7 @@ export default function WorkflowRunsPage({
       <header className="flex items-center gap-3 px-4 sm:px-6 lg:px-8 py-4 lg:py-5 border-b border-[color:var(--border)] bg-[color:var(--surface)]">
         <Link
           href={`/workflows/${id}`}
-          className="h-9 w-9 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+          className="h-9 w-9 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
         </Link>
@@ -106,7 +106,7 @@ function StatusBadge({ status }: { status: string }) {
     failed: 'bg-[color:var(--danger)]/15 text-[color:var(--danger)] border-[color:var(--danger)]/30',
     cancelled: 'bg-[color:var(--surface-3)] text-[color:var(--muted)] border-[color:var(--border)]',
     waiting: 'bg-[color:var(--warning)]/15 text-[color:var(--warning)] border-[color:var(--warning)]/30',
-    running: 'bg-white/10 text-white border-white/20',
+    running: 'bg-[rgb(var(--tint)/0.1)] text-[color:var(--foreground)] border-[rgb(var(--tint)/0.2)]',
   }
   const cls = map[status] ?? map.running
   return (

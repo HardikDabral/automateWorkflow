@@ -32,7 +32,7 @@ export default function RunDetailPage({
       <header className="flex items-center gap-3 px-4 sm:px-6 lg:px-8 py-4 lg:py-5 border-b border-[color:var(--border)] bg-[color:var(--surface)]">
         <Link
           href={`/workflows/${id}/runs`}
-          className="h-9 w-9 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+          className="h-9 w-9 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
         >
           <ArrowLeft className="h-4 w-4" />
         </Link>
@@ -98,7 +98,7 @@ export default function RunDetailPage({
             </dl>
             {data.run.triggerPayload && (
               <details className="mt-5">
-                <summary className="text-xs text-[color:var(--muted)] cursor-pointer hover:text-white transition-colors">
+                <summary className="text-xs text-[color:var(--muted)] cursor-pointer hover:text-[color:var(--foreground)] transition-colors">
                   Trigger payload
                 </summary>
                 <pre className="mt-3 text-xs bg-[color:var(--surface-2)] border border-[color:var(--border)] rounded-xl p-4 overflow-auto">
@@ -139,7 +139,7 @@ export default function RunDetailPage({
                         {s.branchTaken && (
                           <>
                             {' · branch: '}
-                            <strong className="text-white">{s.branchTaken}</strong>
+                            <strong className="text-[color:var(--foreground)]">{s.branchTaken}</strong>
                           </>
                         )}
                       </div>
@@ -153,7 +153,7 @@ export default function RunDetailPage({
                   )}
                   {(s.inputSnapshot || s.outputSnapshot) && (
                     <details className="mt-3">
-                      <summary className="text-xs text-[color:var(--muted)] cursor-pointer hover:text-white transition-colors">
+                      <summary className="text-xs text-[color:var(--muted)] cursor-pointer hover:text-[color:var(--foreground)] transition-colors">
                         Input / output
                       </summary>
                       <div className="mt-3 grid md:grid-cols-2 gap-3 text-xs">
@@ -209,7 +209,7 @@ function StatusBadge({ status }: { status: string }) {
     failed: 'bg-[color:var(--danger)]/15 text-[color:var(--danger)] border-[color:var(--danger)]/30',
     cancelled: 'bg-[color:var(--surface-3)] text-[color:var(--muted)] border-[color:var(--border)]',
     waiting: 'bg-[color:var(--warning)]/15 text-[color:var(--warning)] border-[color:var(--warning)]/30',
-    running: 'bg-white/10 text-white border-white/20',
+    running: 'bg-[rgb(var(--tint)/0.1)] text-[color:var(--foreground)] border-[rgb(var(--tint)/0.2)]',
   }
   const cls = map[status] ?? map.running
   return (
@@ -223,7 +223,7 @@ function StepStatus({ status }: { status: string }) {
   const map: Record<string, string> = {
     completed: 'bg-[color:var(--success)]/15 text-[color:var(--success)] border-[color:var(--success)]/30',
     failed: 'bg-[color:var(--danger)]/15 text-[color:var(--danger)] border-[color:var(--danger)]/30',
-    running: 'bg-white/10 text-white border-white/20',
+    running: 'bg-[rgb(var(--tint)/0.1)] text-[color:var(--foreground)] border-[rgb(var(--tint)/0.2)]',
     skipped: 'bg-[color:var(--surface-3)] text-[color:var(--muted)] border-[color:var(--border)]',
     waiting: 'bg-[color:var(--warning)]/15 text-[color:var(--warning)] border-[color:var(--warning)]/30',
   }

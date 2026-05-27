@@ -73,15 +73,15 @@ export function TriggerNode({ data }: { data: { trigger: { type: string; event?:
   const t = data.trigger
   const label = t.type === 'event' ? t.event || '(event)' : t.cron || '(schedule)'
   return (
-    <div className="rounded-2xl border border-white/30 bg-gradient-to-br from-[color:var(--surface-2)] to-[color:var(--surface)] px-4 py-3 w-[220px]">
+    <div className="rounded-2xl border border-[rgb(var(--tint)/0.3)] bg-gradient-to-br from-[color:var(--surface-2)] to-[color:var(--surface)] px-4 py-3 w-[220px]">
       <div className="flex items-center gap-2.5">
-        <div className="h-7 w-7 rounded-lg bg-white/10 grid place-items-center">
-          <Zap className="h-3.5 w-3.5 text-white" />
+        <div className="h-7 w-7 rounded-lg bg-[rgb(var(--tint)/0.1)] grid place-items-center">
+          <Zap className="h-3.5 w-3.5 text-[color:var(--foreground)]" />
         </div>
         <span className="text-sm font-medium">Trigger</span>
       </div>
       <div className="mt-2 text-xs text-[color:var(--muted)] truncate">{label}</div>
-      <Handle type="source" position={Position.Bottom} className="!bg-white/60 !border-[color:var(--surface)]" />
+      <Handle type="source" position={Position.Bottom} className="!bg-[rgb(var(--tint)/0.6)] !border-[color:var(--surface)]" />
     </div>
   )
 }

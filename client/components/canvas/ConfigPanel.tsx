@@ -30,7 +30,7 @@ export function ConfigPanel({
       <aside className="h-full w-full lg:w-12 shrink-0 border-l border-[color:var(--border)] bg-[color:var(--surface)] flex flex-col items-center py-4">
         <button
           onClick={onToggle}
-          className="h-9 w-9 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+          className="h-9 w-9 grid place-items-center rounded-xl bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
           title="Expand configuration"
         >
           <SlidersHorizontal className="h-4 w-4" />
@@ -57,7 +57,7 @@ export function ConfigPanel({
           {step && (
             <button
               onClick={() => select(null)}
-              className="h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+              className="h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
               title="Deselect"
             >
               <X className="h-4 w-4" />
@@ -65,7 +65,7 @@ export function ConfigPanel({
           )}
           <button
             onClick={onToggle}
-            className="h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-white transition-colors"
+            className="h-8 w-8 grid place-items-center rounded-lg bg-[color:var(--surface-2)] border border-[color:var(--border)] text-[color:var(--muted)] hover:text-[color:var(--foreground)] transition-colors"
             title="Collapse"
           >
             <ChevronRight className="h-4 w-4" />

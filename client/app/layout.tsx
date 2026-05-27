@@ -7,6 +7,8 @@ export const metadata: Metadata = {
   description: 'AI-powered workflow automation',
 }
 
+const themeScript = `(function(){try{var t=localStorage.getItem('wf-theme');if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();`
+
 export default function RootLayout({
   children,
 }: {
@@ -14,6 +16,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
       <body>
         <Providers>{children}</Providers>
       </body>

@@ -90,7 +90,7 @@ export default function SignupPage() {
       </form>
       <p className="mt-6 text-sm text-[color:var(--muted)]">
         Already have an account?{' '}
-        <Link href="/login" className="text-white hover:underline">
+        <Link href="/login" className="text-[color:var(--foreground)] hover:underline">
           Sign in
         </Link>
       </p>

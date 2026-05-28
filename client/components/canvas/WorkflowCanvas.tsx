@@ -29,13 +29,14 @@ const nodeTypes = {
 const STEP_PALETTE: StepType[] = [
   'delay',
   'send_email',
-  'slack',
   'http',
   'branch',
   'loop',
   'create_record',
   'update_record',
 ]
+
+const COMING_SOON: StepType[] = ['slack']
 
 export function WorkflowCanvas() {
   const definition = useWorkflowStore((s) => s.definition)
@@ -95,6 +96,18 @@ export function WorkflowCanvas() {
           >
             + {type}
           </button>
+        ))}
+        {COMING_SOON.map((type) => (
+          <div
+            key={type}
+            className="flex items-center justify-between px-3 py-1.5 rounded-lg text-[color:var(--muted-2)] cursor-not-allowed select-none"
+            title="Coming soon"
+          >
+            <span>+ {type}</span>
+            <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded-md bg-[rgb(var(--brand-rgb)/0.1)] border border-[rgb(var(--brand-rgb)/0.25)] text-[color:var(--brand)]">
+              Soon
+            </span>
+          </div>
         ))}
       </div>
     </div>

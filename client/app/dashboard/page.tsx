@@ -148,27 +148,31 @@ function computeStats(workflows: Workflow[]): StatsShape {
 
 function StatsCard({ stats }: { stats: StatsShape }) {
   return (
-    <div className="rounded-2xl border border-[color:var(--border)] bg-[color:var(--surface)] p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold">At a glance</h3>
-        <span className="text-xs text-[color:var(--muted)]">this tenant</span>
-      </div>
-      <div className="grid grid-cols-3 gap-3">
-        <StatTile
-          icon={<CheckCircle2 className="h-4 w-4 text-[color:var(--success)]" />}
-          label="Active"
-          value={stats.active}
-        />
-        <StatTile
-          icon={<Pause className="h-4 w-4 text-[color:var(--warning)]" />}
-          label="Paused"
-          value={stats.paused}
-        />
-        <StatTile
-          icon={<FileEdit className="h-4 w-4 text-[color:var(--muted)]" />}
-          label="Drafts"
-          value={stats.draft}
-        />
+    <div className="relative overflow-hidden rounded-2xl border border-[rgb(var(--brand-rgb)/0.25)] bg-gradient-to-br from-[rgb(var(--brand-rgb)/0.08)] via-[color:var(--surface)] to-[color:var(--surface)] p-6 shadow-[0_1px_0_rgb(var(--brand-rgb)/0.08),0_20px_60px_-30px_rgb(var(--brand-rgb)/0.5)]">
+      <div className="absolute -top-20 -right-16 h-56 w-56 rounded-full bg-[rgb(var(--brand-rgb)/0.18)] blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-10 h-48 w-48 rounded-full bg-[rgb(var(--brand-rgb)/0.08)] blur-3xl pointer-events-none" />
+      <div className="relative">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-semibold">At a glance</h3>
+          <span className="text-xs text-[color:var(--muted)]">this tenant</span>
+        </div>
+        <div className="grid grid-cols-3 gap-3">
+          <StatTile
+            icon={<CheckCircle2 className="h-4 w-4 text-[color:var(--success)]" />}
+            label="Active"
+            value={stats.active}
+          />
+          <StatTile
+            icon={<Pause className="h-4 w-4 text-[color:var(--warning)]" />}
+            label="Paused"
+            value={stats.paused}
+          />
+          <StatTile
+            icon={<FileEdit className="h-4 w-4 text-[color:var(--muted)]" />}
+            label="Drafts"
+            value={stats.draft}
+          />
+        </div>
       </div>
     </div>
   )

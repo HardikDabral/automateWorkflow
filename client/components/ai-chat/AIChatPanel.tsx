@@ -15,6 +15,12 @@ interface ChatMsg {
   text: string
 }
 
+const SUGGESTIONS = [
+  'Send an email to user@example.com saying "how are you?" when a new signup event fires',
+  'When a payment_received event comes in, wait 1 hour then POST it to https://example.com/webhook',
+  'On signup, create a record in the "users" collection then send a welcome email',
+]
+
 export function AIChatPanel({
   onSessionChange,
   collapsed,
@@ -48,7 +54,7 @@ export function AIChatPanel({
         setMessages([
           {
             role: 'assistant',
-            text: 'Hi! Describe the workflow you want to build and I’ll draft it on the canvas.',
+            text: 'Hi! Describe the workflow you want to build and I’ll draft it on the canvas. Try one of these or write your own:',
           },
         ])
       } catch (e) {
@@ -138,13 +144,27 @@ export function AIChatPanel({
             key={i}
             className={
               m.role === 'user'
-                ? 'ml-8 bg-white text-[color:var(--accent-fg)] rounded-2xl rounded-tr-md px-4 py-2.5'
+                ? 'ml-8 bg-[color:var(--accent)] text-[color:var(--accent-fg)] rounded-2xl rounded-tr-md px-4 py-2.5'
                 : 'mr-8 bg-[color:var(--surface-2)] border border-[color:var(--border)] rounded-2xl rounded-tl-md px-4 py-2.5'
             }
           >
             {m.text}
           </div>
         ))}
+        {messages.length === 1 && messages[0].role === 'assistant' && !send.isPending && (
+          <div className="mr-8 flex flex-col gap-2 pt-1">
+            {SUGGESTIONS.map((s) => (
+              <button
+                key={s}
+                type="button"
+                onClick={() => setInput(s)}
+                className="text-left text-xs px-3 py-2 rounded-xl border border-[rgb(var(--brand-rgb)/0.25)] bg-[rgb(var(--brand-rgb)/0.06)] hover:bg-[rgb(var(--brand-rgb)/0.12)] text-[color:var(--foreground)] transition-colors"
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        )}
         {send.isPending && (
           <div className="mr-8 inline-flex items-center gap-2 text-[color:var(--muted)] text-xs px-4 py-2 bg-[color:var(--surface-2)] border border-[color:var(--border)] rounded-2xl">
             <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--muted)] animate-pulse" />

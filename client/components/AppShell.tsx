@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, type ReactNode } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import {
@@ -78,7 +78,11 @@ function Sidebar({
 }) {
   const router = useRouter()
   const pathname = usePathname()
-  const auth = typeof window !== 'undefined' ? loadAuth() : null
+  const [auth, setAuth] = useState<ReturnType<typeof loadAuth> | null>(null)
+
+  useEffect(() => {
+    setAuth(loadAuth())
+  }, [])
 
   function onLogout() {
     clearAuth()
@@ -86,7 +90,7 @@ function Sidebar({
     router.push('/login')
   }
 
-  const initials = (auth?.user.email ?? '?').slice(0, 2).toUpperCase()
+  const initials = (auth?.user.email ?? '  ').slice(0, 2).toUpperCase()
 
   return (
     <aside className="h-screen lg:sticky lg:top-0 flex flex-col bg-[color:var(--surface)] border-r border-[color:var(--border)] p-4">

@@ -29,15 +29,15 @@
 
 /* ───────── Dark ───────── */
 :root[data-theme="dark"] {
-  --background: #0a0a0b;
-  --surface: #111113;
-  --surface-2: #17171a;
-  --surface-3: #1f1f23;
-  --border: #232327;
-  --border-strong: #2e2e34;
-  --foreground: #f5f5f7;
-  --muted: #8b8b93;
-  --muted-2: #5f5f66;
+  --background: #09090b;
+  --surface: #17171a;
+  --surface-2: #202024;
+  --surface-3: #2b2b30;
+  --border: #2e2e34;
+  --border-strong: #3f3f46;
+  --foreground: #fafafa;
+  --muted: #a1a1a8;
+  --muted-2: #71717a;
   --accent: #ffffff;
   --accent-fg: #0a0a0b;
   --success: #4ade80;
@@ -46,9 +46,9 @@
   --ring: rgba(255, 255, 255, 0.08);
   --tint: 255 255 255;
   --ring-stroke: rgba(255, 255, 255, 0.22);
-  --grid: #2a2a30;
-  --scroll-thumb: #2e2e34;
-  --scroll-thumb-hover: #3a3a41;
+  --grid: #34343a;
+  --scroll-thumb: #3f3f46;
+  --scroll-thumb-hover: #52525b;
   --brand-rgb: 129 140 248;
   --brand: #818cf8;
   --brand-strong: #a5b4fc;
